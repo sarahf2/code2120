@@ -3,6 +3,11 @@
 from flask import Flask, request
 import openpyxl
 
+import os
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+input_file = os.path.join(THIS_FOLDER, 'Pricelist.xlsx')
+
 #the application object
 app = Flask(__name__)
 
@@ -18,7 +23,7 @@ def increase():
 	variables = dict(args)  #moving arguments from strings to variables
 
 	uplift=float(variables['uplift'])              #converting variable to float (decimals)
-	wb = openpyxl.load_workbook("Pricelist.xlsx")  #locating the relevant excel sheet
+	wb = openpyxl.load_workbook(input_file)  	   #locating the relevant excel sheet
 	ws = wb.active								   #selecting the active sheet
 
 	npl={}   									   #creating a json object (to store new price list) cause its easy to handle :)
